@@ -1,0 +1,45 @@
+name: Shared Jobs
+
+on:
+  workflow_call:  # 使用workflow_call来定义一个可被其他Workflow调用的Job
+    inputs:
+      url:
+        required: true
+        type: string
+      bearer_token:
+        required: true
+        type: string
+      request_body:
+        required: true
+        type: string
+    outputs:
+      response_status:
+        description: "The status of the response"
+        value: ${{ jobs.post_request.outputs.response_status }}
+
+jobs:
+  post_request:
+    runs-on: ubuntu-latest
+    outputs:
+      response_status: ${{ steps.log_response_status.outputs.response_status }}  # 定义输出
+
+    steps:
+      - name: Send POST request
+        id: send_post
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ inputs.bearer_token }}" \
+            -d "${{ inputs.request_body }}" \
+            ${{ inputs.url }} \
+            -o response.json
+          
+          echo "Response:"
+          cat response.json
+
+      - name: Log response status
+        id: log_response_status
+        run: |
+          RESPONSE_STATUS=$(jq -r '.status' response.json)
+          echo "Response Status: $RESPONSE_STATUS"
+          echo "response_status=$RESPONSE_STATUS" >> $GITHUB_OUTPUT  # 输出响应状态
