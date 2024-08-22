@@ -19,7 +19,7 @@ jobs:
         run: |
           curl -X POST \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $BEARER_TOKEN" \
+            -H "Authorization: $BEARER_TOKEN" \
             -d "$REQUEST_BODY" \
             $URL \
             -o response.json
