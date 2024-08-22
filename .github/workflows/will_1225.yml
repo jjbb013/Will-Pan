@@ -1,8 +1,8 @@
 name: Will Scheduled POST Requests 12:25
 
 on:
-  schedule:
-    - cron: '25 4 * * 1-5' # 上海时间12:25
+  #schedule:
+  #  - cron: '25 4 * * 1-5' # 上海时间12:25
   workflow_dispatch:
 
 jobs:
