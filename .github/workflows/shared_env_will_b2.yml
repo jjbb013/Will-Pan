@@ -1,6 +1,0 @@
-name: Shared Environment Variables
-
-env:
-  URL: https://carbon-account-server.carbonstop.net/task/completeTimeTripTask
-  BEARER_TOKEN: eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjEsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmNBZDVCcjIwQk5GUFlyUmV5ZHI3cUZPTlRNOjE5NzE5MzVhLTEyNzUtNDU1My1hMWE2LTY1ZjA4YmE2ZWE1MyIsInVzZXJuYW1lIjoib0ZiQWQ1QnoyMEJORlBZclJleWRyN3FGT05UTSJ9._r_kzgwCvFCaqZgzhT46LAlmvTC71yyJP43yNYkjmoSrJ-N2EzymlSlu7V00BvRlEtNFBwWH3ToWOjgTTo39TA
-  REQUEST_BODY: '{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}'
