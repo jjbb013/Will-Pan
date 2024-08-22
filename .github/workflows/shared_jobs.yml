@@ -29,7 +29,7 @@ jobs:
         run: |
           curl -X POST \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${{ inputs.bearer_token }}" \
+            -H "Authorization:${{ inputs.bearer_token }}" \
             -d "${{ inputs.request_body }}" \
             ${{ inputs.url }} \
             -o response.json
