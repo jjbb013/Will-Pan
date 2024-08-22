@@ -29,17 +29,11 @@ jobs:
         run: |
           curl -X POST \
             -H "Content-Type: application/json" \
-            -H "Authorization:${{ inputs.bearer_token }}" \
+            -H "Authorization:eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjEsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVCejIwQk5GUFlyUmV5ZHI3cUZPTlRNOjE5NzE5MzVhLTEyNzUtNDU1My1hMWE2LTY1ZjA4YmE2ZWE1MyIsInVzZXJuYW1lIjoib0ZiQWQ1QnoyMEJORlBZclJleWRyN3FGT05UTSJ9._r_kzgwCvFCaqZgzhT46LAlmvTC71yyJP43yNYkjmoSrJ-N2EzymlSlu7V00BvRlEtNFBwWH3ToWOjgTTo39TA" \
             -d "{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}" \
-            ${{ inputs.url }} \
+            https://carbon-account-server.carbonstop.net/task/completeTimeTripTask \
             -o response.json
           
           echo "Response:"
           cat response.json
 
-      - name: Log response status
-        id: log_response_status
-        run: |
-          RESPONSE_STATUS=$(jq -r '.status' response.json)
-          echo "Response Status: $RESPONSE_STATUS"
-          echo "response_status=$RESPONSE_STATUS" >> $GITHUB_OUTPUT  # 输出响应状态
