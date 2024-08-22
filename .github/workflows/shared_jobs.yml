@@ -30,7 +30,7 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -H "Authorization:${{ inputs.bearer_token }}" \
-            -d "${{ inputs.request_body }}" \
+            -d "{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}" \
             ${{ inputs.url }} \
             -o response.json
           
