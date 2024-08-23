@@ -16,7 +16,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const userInfo = fs.readFileSync('namelist.yml', 'utf8');
+            const userInfo = fs.readFileSync('.github/workflows/namelist.yml', 'utf8');
             console.log(JSON.stringify(userInfo));
 
       - name: Process user info
