@@ -16,18 +16,10 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const userInfo = fs.readFileSync('.github/workflows/namelist.yml', 'utf8');
+            const userInfo = fs.readFileSync('user_info.yml', 'utf8');
             console.log(JSON.stringify(userInfo));
 
       - name: Process user info
         run: |
           users=$(echo "${{ steps.read_user_info.outputs.result }}" | yq e '.[] | .name' -)
-          for user in $users; do
-            echo "User: $user"
-            # 这里可以根据需要对每个用户进行相应的操作
-            # 例如输出用户年龄和邮箱信息：
-            age=$(echo "${{ steps.read_user_info.outputs.result }}" | yq e --arg user "$user" '.[] | select(.name==$user) | .age' -)
-            email=$(echo "${{ steps.read_user_info.outputs.result }}" | yq e --arg user "$user" '.[] | select(.name==$user) | .email' -)
-            echo "Age: $age"
-            echo "Email: $email"
-          done
+          echo "$users"
