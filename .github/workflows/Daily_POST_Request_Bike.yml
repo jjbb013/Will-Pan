@@ -1,4 +1,4 @@
-name: Daily POST Request Box
+name: Daily POST Request Bike
 
 on:
   schedule:
