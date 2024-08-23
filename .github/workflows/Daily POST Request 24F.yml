@@ -1,0 +1,42 @@
+name: Daily POST Request 24F
+
+on:
+  schedule:
+    - cron: '34 4 * * 1-5' # 上海时区中午12:25，对应的UTC时间是前一天晚上20:34 (UTC+8)
+    - cron: '44 4 * * 1-5' # 上海时区中午12:35，对应的UTC时间是前一天晚上20:44 (UTC+8)
+    - cron: '54 4 * * 1-5' # 上海时区中午12:45，对应的UTC时间是前一天晚上20:54 (UTC+8)
+  workflow_dispatch:
+
+jobs:
+  post_request:
+    runs-on: ubuntu-latest
+    env:
+      URL: https://carbon-account-server.carbonstop.net/task/completeTimeTripTask
+      BEARER_TOKEN: 'eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjEsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVCejIwQk5GUFlyUmV5ZHI3cUZPTlRNOjE5NzE5MzVhLTEyNzUtNDU1My1hMWE2LTY1ZjA4YmE2ZWE1MyIsInVzZXJuYW1lIjoib0ZiQWQ1QnoyMEJORlBZclJleWRyN3FGT05UTSJ9._r_kzgwCvFCaqZgzhT46LAlmvTC71yyJP43yNYkjmoSrJ-N2EzymlSlu7V00BvRlEtNFBwWH3ToWOjgTTo39TA,eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTgyMjIsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVBbG95SnJWTmZuYzBMNko5ODFIZ1Y0OjI3MTkzMjBmLTVkZjgtNDJlMC05NjVhLWE5NGU4YzdhM2M1ZiIsInVzZXJuYW1lIjoib0ZiQWQ1QWxveUpyVk5mbmMwTDZKOTgxSGdWNCJ9.NPTazHv347GBqTKFj7WX_vju46v85TXY5BIeG_XL5nehU0k0e659-ppcWufLzyDB-YFNvXoV_-C59P8b1Uo6Lg'
+      REQUEST_BODY: '{"sceneCode":"MRCJ0021","value":"24","signMessage":"fcff47b42c5a6782387ea2cf3d4e33d6"}'
+      NAME: 'Will,TianCheng'
+
+    steps:
+      - name: Send POST request
+        id: send_post
+        run: |
+          IFS=',' read -ra TOKENS <<< "$BEARER_TOKEN"
+          IFS=',' read -ra NAMES <<< "$NAME"
+          for i in "${!TOKENS[@]}"; do
+              token="${TOKENS[$i]}"
+              name="${NAMES[$i]}"
+              echo "正在执行的账户: $name"
+              curl -X POST \
+                -H "Content-Type: application/json" \
+                -H "Authorization:$token" \
+                -d "$REQUEST_BODY" \
+                $URL \
+                -o response.json
+              
+                echo "Response:"
+                cat response.json
+              done
+      - name: Log response status
+        run: |
+          RESPONSE_STATUS=$(jq -r '.status' response.json)
+          echo "Response Status: $RESPONSE_STATUS"
