@@ -33,8 +33,9 @@ jobs:
                 $URL \
                 -o response.json
               
-              echo "Response:"
-              cat response.json
+                echo "Response:"
+                cat response.json
+              done
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
