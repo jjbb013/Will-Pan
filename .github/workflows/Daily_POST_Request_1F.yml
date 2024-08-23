@@ -1,4 +1,4 @@
-name: Daily POST Request
+name: Daily POST Request 1F
 
 on:
   schedule:
