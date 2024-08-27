@@ -1,4 +1,4 @@
-name: Example Workflow
+name: Example Workflow 2
 on:
   workflow_dispatch:
 env:
