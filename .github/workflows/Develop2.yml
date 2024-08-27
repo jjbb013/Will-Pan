@@ -1,19 +1,32 @@
 name: Example Workflow 2
 on:
   workflow_dispatch:
-env:
-  CONFIG: |
-    {"key1": "value1", "key2": "value2", "key3": "value3"}
 
 jobs:
-  example-job:
+  read-json-file:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Config
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Read JSON file
         run: |
-          echo "Config:"
-          echo "$CONFIG"
-          for i in $CONFIG; do
-            token="${CONFIG[$i]}"
-            echo "@token"
-          done
+          # Read the JSON file and parse it
+          const fs = require('fs');
+          const path = require('path');
+          const filePath = path.join(__dirname, 'config.json');
+          const data = fs.readFileSync(filePath, 'utf8');
+          const config = JSON.parse(data);
+
+          # Loop over the keys in the JSON object
+          Object.keys(config).forEach(key => {
+            console.log(`Key: ${key}, Value: ${config[key]}`);
+          });
