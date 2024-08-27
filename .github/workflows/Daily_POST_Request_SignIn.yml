@@ -2,7 +2,7 @@ name: Daily POST Request SignIn
 
 on:
   schedule:
-    - cron: '30 4 * * *' # 上海时区中午12:30，
+    - cron: '1 4 * * *' # 上海时区中午12:30，
 
   workflow_dispatch:
 
