@@ -13,6 +13,6 @@ jobs:
         run: |
           #!/bin/bash
           # Read the configuration file and process each line
-          while IFS='=' read -r name domain zone; do
+          while IFS=';' read -r name domain zone; do
             echo "Key: $name, Value: $domain, Zone: $zone"
           done < config2.properties
