@@ -33,4 +33,4 @@ jobs:
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
-          echo "Response Status: $RESPONSE_STATUS"
+          echo -e "Response Status: $RESPONSE_STATUS \n"
