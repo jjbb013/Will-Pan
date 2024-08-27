@@ -13,6 +13,7 @@ jobs:
         run: |
           echo "Config:"
           echo "$CONFIG"
-          for i in $CONFIG:
-            echo i.value
+          for i in $CONFIG; do
+            token="${CONFIG[$i]}"
+            echo "@token"
           done
