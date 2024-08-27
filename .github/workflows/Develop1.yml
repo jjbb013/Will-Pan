@@ -1,0 +1,19 @@
+name: Example Workflow
+on:
+  workflow_dispatch:
+  
+
+env:
+  CONFIG: |
+    key1: value1
+    key2: value2
+    key3: value3
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Config
+        run: |
+          echo "Config:"
+          echo "$CONFIG"
