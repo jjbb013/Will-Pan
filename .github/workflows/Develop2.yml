@@ -13,3 +13,6 @@ jobs:
         run: |
           echo "Config:"
           echo "$CONFIG"
+          for i in $CONFIG:
+            echo i.value
+          done
