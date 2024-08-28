@@ -8,35 +8,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  post_request:
+  read-config-file:
     runs-on: ubuntu-latest
     env:
+      #Request Box
       URL: https://carbon-account-server.carbonstop.net/task/complete
       REQUEST_BODY: '{"sceneCode":"MRCJ1889","value":1,"signMessage":"38173cda070782f86b6c2b3e92192156"}'
-      BEARER_TOKEN: 'eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjEsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVCejIwQk5GUFlyUmV5ZHI3cUZPTlRNOjcyOWU2MmFhLTNkYzEtNGQ3ZS1iY2IwLTcxY2YyMTQyYmE2NiIsInVzZXJuYW1lIjoib0ZiQWQ1QnoyMEJORlBZclJleWRyN3FGT05UTSJ9.rgKPBYqNBGtJLSHJtkcr-7-MCOp1yHXirzuHBdNjKqMfJF5vOvKSHaWcRyXuY5kjnnzWAjp0uVQbbO5YWUSipA,eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTgyMjIsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVBbG95SnJWTmZuYzBMNko5ODFIZ1Y0OjI3MTkzMjBmLTVkZjgtNDJlMC05NjVhLWE5NGU4YzdhM2M1ZiIsInVzZXJuYW1lIjoib0ZiQWQ1QWxveUpyVk5mbmMwTDZKOTgxSGdWNCJ9.NPTazHv347GBqTKFj7WX_vju46v85TXY5BIeG_XL5nehU0k0e659-ppcWufLzyDB-YFNvXoV_-C59P8b1Uo6Lg,eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTc2OTcsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVPWHJ5bHVHSWRxVFhvT0FIaU84QTZ3OmE2NTRhMzRmLTA0OTEtNDY0Zi05NzBjLTIwMGU4MjE4MTJkMCIsInVzZXJuYW1lIjoib0ZiQWQ1T1hyeWx1R0lkcVRYb09BSGlPOEE2dyJ9.reocQ0zNd-uiEqbXdSdInWS4PPwSP_IBtdOOSldCrYgrjJgB99gDaC4S_uyC9artIEaXj5izWJCjfXr9gFWQbQ,eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjAsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVQWHJwMlFiMkRBMU5NSzdhUFhhcHZrOjcxZjQwNGJlLWU0ZTktNDc4My05NjI2LTBmNGFjNGE0NzI3YSIsInVzZXJuYW1lIjoib0ZiQWQ1UFhycDJRYjJEQTFOTUs3YVBYYXB2ayJ9.Wkjb4Wuxb4VEP-eS_SJcoEARWgvC20Phz2W1fDvh41neU06S_8ocVYY9HlVo24LlfdSd4vytuOByMz6AGWbrJQ,eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjo0MDA2NDQsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVQZmNuYjZaRlRGVTZTY3NxaDl5OWlvOjgyMzZkYzg0LTczYWItNDY5Ni04Yzc0LTg5ZGRmM2IxMzk4MSIsInVzZXJuYW1lIjoib0ZiQWQ1UGZjbmI2WkZURlU2U2NzcWg5eTlpbyJ9.PmQQL6IuItypOx0rMHNT1xzsXy4CisqNSU41xpi9gyusDlCGA0cufmHiVBks0Fv-kGAiW3koSxV3B4mdUN5wFw'
-      NAME: 'Will,TianCheng,LongAoTian,DanDan,WuDi'
 
     steps:
-      - name: Send POST request
-        id: send_post
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Request Box
         run: |
-          IFS=',' read -ra TOKENS <<< "$BEARER_TOKEN"
-          IFS=',' read -ra NAMES <<< "$NAME"
-          for i in "${!TOKENS[@]}"; do
-              token="${TOKENS[$i]}"
-              name="${NAMES[$i]}"
-              echo "正在执行的账户: $name"
-              curl -X POST \
-                -H "Content-Type: application/json" \
-                -H "Authorization:$token" \
-                -d "$REQUEST_BODY" \
-                $URL \
-                -o response.json
-              
-                echo "Response:"
-                cat response.json
-              done
+          #!/bin/bash
+          # Read the configuration file and process each line
+          while IFS='=' read -r name token; do
+            echo "Key: $name, Value: $token"
+            echo "正在执行的账户: $name"
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$token" \
+            -d "$REQUEST_BODY" \
+            $URL \
+            -o response.json
+          
+            echo "Response:"
+            cat response.json  
+          done < config.properties
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
-          echo "Response Status: $RESPONSE_STATUS"
+          echo -e "Response Status: $RESPONSE_STATUS \n"
