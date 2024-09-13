@@ -42,6 +42,7 @@ jobs:
               curl -X POST -H 'Content-Type: application/json' -d "{\"title\":\"碳账户Token失效通知\",\"body\":\"$name token校验失败\"}" "$BARK_URL"
             else
               echo "$name Token 可用"
+              curl -X POST -H 'Content-Type: application/json' -d "{\"title\":\"碳账户操作成功通知\",\"body\":\"$name token校验成功\"}" "$BARK_URL"
             fi
 
           done < config.properties
