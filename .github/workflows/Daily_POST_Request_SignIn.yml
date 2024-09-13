@@ -35,7 +35,8 @@ jobs:
           
             echo "Response:"
             cat response.json
-            if [[ response.json == *"200"* ]]; then
+            result=response.json
+            if [[ $result == *"200"* ]]; then
               echo "$name Token可用"
             else
               echo "$name Token已失效"
