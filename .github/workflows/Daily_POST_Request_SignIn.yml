@@ -31,7 +31,7 @@ jobs:
             -H "Authorization:$token" \
             -d "$REQUEST_BODY" \
             $URL \
-            -o result = response.json
+            -o response.json
           
             echo "Response:"
             cat response.json
