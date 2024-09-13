@@ -35,9 +35,8 @@ jobs:
           
             echo "Response:"
             cat response.json
-            echo "$result"
-            echo $response.json
-            if [[ "$response.json" == *"本日已完成"* ]]; then
+            # 检查响应内容
+            if grep -q "本日已完成" response.json; then
               echo "$name Token可用"
             else
               echo "$name Token已失效"
