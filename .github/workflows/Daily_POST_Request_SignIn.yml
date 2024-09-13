@@ -31,11 +31,11 @@ jobs:
             -H "Authorization:$token" \
             -d "$REQUEST_BODY" \
             $URL \
-            -o response.json
+            -o result = response.json
           
             echo "Response:"
             cat response.json
-            echo "$response.json"
+            echo "$result"
             echo $response.json
             if [[ "$response.json" == *"本日已完成"* ]]; then
               echo "$name Token可用"
