@@ -36,12 +36,12 @@ jobs:
             echo "Response:"
             cat response.json
             # 检查响应内容
-            if grep -q "本日已完成" response.json; then
-              echo "$name Token可用"
-            else
-              echo "$name Token已失效"
+            if grep -q "token校验失败" response.json; then
+              echo "$name token校验失败"
               # 发送Bark通知
-              #curl -X POST -H 'Content-Type: application/json' -d "{\"title\":\"炭账户Token失效通知\",\"body\":\"$name Token已失效\"}" "$BARK_URL"
+              curl -X POST -H 'Content-Type: application/json' -d "{\"title\":\"碳账户Token失效通知\",\"body\":\"$name token校验失败\"}" "$BARK_URL"
+            else
+              echo "$name Token 可用"
             fi
 
           done < config.properties
