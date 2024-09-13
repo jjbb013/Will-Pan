@@ -13,6 +13,7 @@ jobs:
       #Request SignIn
       URL: https://carbon-account-server.carbonstop.net/task/complete
       REQUEST_BODY: '{"value" : 1,"sceneCode" : "MRCJ0002","signMessage" : "2c2b34840b8ec9fb735e1b2bed8533fa"}'
+      BARK_URL: 'https://api.day.app/oZaeqGLJzRLSxW7dJqeACn/'
 
     steps:
       - name: Checkout repository
@@ -34,6 +35,8 @@ jobs:
           
             echo "Response:"
             cat response.json  
+            # 发送Bark通知
+            #curl -X POST -H 'Content-Type: application/json' -d "{\"title\":\"$title\",\"body\":\"$content\"}" "$BARK_URL"
           done < config.properties
       - name: Log response status
         run: |
