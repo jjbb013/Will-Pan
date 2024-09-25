@@ -1,0 +1,39 @@
+name: 手动爬楼
+on:
+  workflow_dispatch:
+
+jobs:
+  read-config-file:
+    runs-on: ubuntu-latest
+    env:
+      URL: https://carbon-account-server.carbonstop.net/task/completeTimeTripTask
+      REQUEST_BODY_1: '{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}'
+      REQUEST_BODY_24: '{"sceneCode":"MRCJ0021","value":"24","signMessage":"fcff47b42c5a6782387ea2cf3d4e33d6"}'
+      TOKEN: 'eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTc2OTcsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVPWHJ5bHVHSWRxVFhvT0FIaU84QTZ3OmRiNjljZWQ5LWFiZDEtNGMxNS04YjZlLTAxYTUxNjllNDRiNyIsInVzZXJuYW1lIjoib0ZiQWQ1T1hyeWx1R0lkcVRYb09BSGlPOEE2dyJ9.ALVOE4P8YrMH_ygZjVvuEo8ocVSsiEbTb31Dz5aY7wb5bAIEQUo_D6QpOqONNGiE_bcX_aUuPDgSDgEKsD-2WQ'
+      
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read configuration file
+        run: |
+          #!/bin/bash
+          # Read the configuration file and process each line
+          while IFS='=' read -r name token; do
+            echo "Key: $name, Value: $token"
+            echo "正在执行的账户: $name"
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$token" \
+            -d "$REQUEST_BODY" \
+            $URL \
+            -o response.json
+          
+            echo "Response:"
+            cat response.json  
+          done < config.properties
+      - name: Log response status
+        run: |
+          RESPONSE_STATUS=$(jq -r '.status' response.json)
+          echo -e "Response Status: $RESPONSE_STATUS \n"
