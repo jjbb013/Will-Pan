@@ -20,19 +20,24 @@ jobs:
         run: |
           #!/bin/bash
           # Read the configuration file and process each line
-          while IFS='=' read -r name token; do
-            echo "Key: $name, Value: $token"
-            echo "正在执行的账户: $name"
+          # 爬楼1F
             curl -X POST \
             -H "Content-Type: application/json" \
-            -H "Authorization:$token" \
-            -d "$REQUEST_BODY" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_1" \
             $URL \
             -o response.json
-          
-            echo "Response:"
-            cat response.json  
-          done < config.properties
+            cat response.json
+          # 等8分钟
+            sleep 480
+          # 爬楼24F
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_24" \
+            $URL \
+            -o response.json
+            cat response.json           
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
