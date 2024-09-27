@@ -37,7 +37,43 @@ jobs:
             -d "$REQUEST_BODY_24" \
             $URL \
             -o response.json
-            cat response.json           
+            cat response.json
+            # 爬楼1F
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_1" \
+            $URL \
+            -o response.json
+            cat response.json
+          # 等8分钟
+            sleep 480
+          # 爬楼24F
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_24" \
+            $URL \
+            -o response.json
+            cat response.json
+            # 爬楼1F
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_1" \
+            $URL \
+            -o response.json
+            cat response.json
+          # 等8分钟
+            sleep 480
+          # 爬楼24F
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$TOKEN" \
+            -d "$REQUEST_BODY_24" \
+            $URL \
+            -o response.json
+            cat response.json
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
