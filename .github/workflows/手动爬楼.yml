@@ -9,7 +9,7 @@ jobs:
       URL: https://carbon-account-server.carbonstop.net/task/completeTimeTripTask
       REQUEST_BODY_1: '{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}'
       REQUEST_BODY_24: '{"sceneCode":"MRCJ0021","value":"24","signMessage":"fcff47b42c5a6782387ea2cf3d4e33d6"}'
-      TOKEN: 'eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTc2OTcsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVPWHJ5bHVHSWRxVFhvT0FIaU84QTZ3OmRiNjljZWQ5LWFiZDEtNGMxNS04YjZlLTAxYTUxNjllNDRiNyIsInVzZXJuYW1lIjoib0ZiQWQ1T1hyeWx1R0lkcVRYb09BSGlPOEE2dyJ9.ALVOE4P8YrMH_ygZjVvuEo8ocVSsiEbTb31Dz5aY7wb5bAIEQUo_D6QpOqONNGiE_bcX_aUuPDgSDgEKsD-2WQ'
+      TOKEN: 'eyJhbGciOiJIUzUxMiJ9.eyJjb21wYW55X2lkIjoxMDAwMDAwNzQyNzkwMTYyLCJ1c2VyX2lkIjozOTQzNjAsInVzZXJfa2V5IjoiMTAwMDAwMDc0Mjc5MDE2MjpvRmJBZDVQWHJwMlFiMkRBMU5NSzdhUFhhcHZrOmIzNDk1ZGM2LWFiMTUtNDUzZC1iOWZlLTFiY2JiOTc5NTgyMiIsInVzZXJuYW1lIjoib0ZiQWQ1UFhycDJRYjJEQTFOTUs3YVBYYXB2ayJ9.37flteqlp-sUnUEZClzpjhIq8-GNpWAV3uwenyK2hHJMYwpo4hC5w0rSr7DDC2aSBQ3zMu_C5mkNA0m7HFUNRQ'
       
 
     steps:
