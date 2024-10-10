@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       #Request 1F
-      URL: https://carbon-account-server.carbonstop.net/task/completeTimeTripTask
+      URL: https://carbon-account-server.carbonstop.net/task/giveupStairs
       REQUEST_BODY: '{"sceneCode" : "MRCJ0021","tripPunchId" : 6059}'
       REQUEST_BODY_1: '{"value":"1","sceneCode":"MRCJ0021","signMessage":"3df1c430e4c80f62f9faa809bf380c06"}'
       REQUEST_BODY_24: '{"sceneCode":"MRCJ0021","value":"24","signMessage":"fcff47b42c5a6782387ea2cf3d4e33d6"}'
