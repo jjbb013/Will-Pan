@@ -5,12 +5,6 @@ on:
   workflow_dispatch:
 
 
-yaml
-name: TCPing Check
-
-on:
-  workflow_dispatch:
-
 jobs:
   tcping_check:
     runs-on: ubuntu-latest
