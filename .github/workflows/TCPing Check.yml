@@ -5,26 +5,17 @@ on:
   workflow_dispatch:
 
 
+yaml
+name: TCPing Check
+
+on:
+  workflow_dispatch:
+
 jobs:
   tcping_check:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Make GET Request to TCPing API
+      id: tcping_request
       run: |
-        # 在 Windows 上使用 PowerShell 的 curl 命令
-        $ADDRESS = "gcp.india.onemorething.pp.ua"
-        $PORT = 1081
-        $API_URL = "https://v2.api-m.com/api/tcping?address=$ADDRESS&port=$PORT"
-        
-        # 发起 GET 请求
-        $RESPONSE = curl $API_URL
-        Write-Host "Response: $RESPONSE"
-
-        # 检查响应内容
-        if ($RESPONSE -like "*200*") {
-            Write-Host "TCPing successful. The address is reachable."
-            echo "reachable=true" >> $GITHUB_ENV
-        } else {
-            Write-Host "TCPing failed. The address is not reachable."
-            echo "reachable=false" >> $GITHUB_ENV
-        }
+        nslookup v2.api-m.com
