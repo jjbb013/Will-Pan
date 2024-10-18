@@ -4,34 +4,27 @@ name: TCPing Check
 on:
   workflow_dispatch:
 
+
 jobs:
   tcping_check:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - name: Make GET Request to TCPing API
-      id: tcping_request
       run: |
-        ADDRESS="gcp.india.onemorething.pp.ua"
-        PORT=1081
-        API_URL="https://v2.api-m.com/api/tcping?address=$ADDRESS&port=$PORT"
+        # 在 Windows 上使用 PowerShell 的 curl 命令
+        $ADDRESS = "gcp.india.onemorething.pp.ua"
+        $PORT = 1081
+        $API_URL = "https://v2.api-m.com/api/tcping?address=$ADDRESS&port=$PORT"
         
-        # 使用 curl 发起 GET 请求
-        RESPONSE=$(curl -s "$API_URL")
-        echo "Response: $RESPONSE"
+        # 发起 GET 请求
+        $RESPONSE = curl $API_URL
+        Write-Host "Response: $RESPONSE"
 
-        # 检查响应中的内容
-        if [[ $RESPONSE == *"200"* ]]; then
-          echo "TCPing successful. The address is reachable."
-          echo "reachable=true" >> $GITHUB_ENV
-        else
-          echo "TCPing failed. The address is not reachable."
-          echo "reachable=false" >> $GITHUB_ENV
-        fi
-
-    - name: Check Reachability Result
-      run: |
-        if [ "${{ env.reachable }}" == "true" ]; then
-          echo "The address is reachable!"
-        else
-          echo "The address is not reachable."
-        fi
+        # 检查响应内容
+        if ($RESPONSE -like "*200*") {
+            Write-Host "TCPing successful. The address is reachable."
+            echo "reachable=true" >> $GITHUB_ENV
+        } else {
+            Write-Host "TCPing failed. The address is not reachable."
+            echo "reachable=false" >> $GITHUB_ENV
+        }
