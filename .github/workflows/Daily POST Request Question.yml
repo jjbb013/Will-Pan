@@ -35,6 +35,20 @@ jobs:
             echo "Response:"
             cat response.json  
           done < config.properties
+          sleep 10
+          while IFS='=' read -r name token; do
+            echo "Key: $name, Value: $token"
+            echo "正在执行的账户: $name"
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$token" \
+            -d "$REQUEST_BODY" \
+            $URL \
+            -o response.json
+          
+            echo "Response:"
+            cat response.json  
+          done < config.properties
       - name: Log response status
         run: |
           RESPONSE_STATUS=$(jq -r '.status' response.json)
