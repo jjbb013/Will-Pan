@@ -3,8 +3,6 @@ name: Daily POST Request Box
 on:
   schedule:
     - cron: '26 4 * * 1-5' # 上海时区中午12:26，
-    - cron: '27 4 * * 1-5' # 上海时区中午12:27，
-    - cron: '28 4 * * 1-5' # 上海时区中午12:28，
   workflow_dispatch:
 
 jobs:
@@ -23,6 +21,34 @@ jobs:
         run: |
           #!/bin/bash
           # Read the configuration file and process each line
+          while IFS='=' read -r name token; do
+            echo "Key: $name, Value: $token"
+            echo "正在执行的账户: $name"
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$token" \
+            -d "$REQUEST_BODY" \
+            $URL \
+            -o response.json
+          
+            echo "Response:"
+            cat response.json  
+          done < config.properties
+          sleep 10
+          while IFS='=' read -r name token; do
+            echo "Key: $name, Value: $token"
+            echo "正在执行的账户: $name"
+            curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization:$token" \
+            -d "$REQUEST_BODY" \
+            $URL \
+            -o response.json
+          
+            echo "Response:"
+            cat response.json  
+          done < config.properties
+          sleep 10
           while IFS='=' read -r name token; do
             echo "Key: $name, Value: $token"
             echo "正在执行的账户: $name"
