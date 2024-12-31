@@ -1,8 +1,8 @@
 name: Daily POST Request Question
 
 on:
-  #schedule:
-   # - cron: '16 4 * * *' # 上海时区中午12:16，
+  schedule:
+    - cron: '16 4 * * *' # 上海时区中午12:16，
   workflow_dispatch:
 
 jobs:
