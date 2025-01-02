@@ -1,8 +1,8 @@
 name: Daily POST Request 24F to 1F
 
 on:
-  #schedule:
-    #- cron: '10 4 * * 1-5' # 上海时区中午12:25，对应的UTC时间是前一天晚上20:34 (UTC+8)
+  schedule:
+    - cron: '10 4 * * 1-5' # 上海时区中午12:25，对应的UTC时间是前一天晚上20:34 (UTC+8)
   workflow_dispatch:
 
 jobs:
