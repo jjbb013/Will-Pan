@@ -1,8 +1,8 @@
 name: Daily POST Request Box
 
 on:
-  #schedule:
-   # - cron: '26 4 * * 1-5' # 上海时区中午12:26，
+  schedule:
+    - cron: '26 4 * * 1-5' # 上海时区中午12:26，
   workflow_dispatch:
 
 jobs:
