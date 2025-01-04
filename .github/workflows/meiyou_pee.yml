@@ -12,13 +12,14 @@ jobs:
       run: sudo timedatectl set-timezone Asia/Shanghai
     - name: Send meiyou_pee
       env:
-        MEIYOU_KEY: ${{ secrets.MEIYOU_KEY }}  # 从 GitHub Secrets 获取你的 Bark Key
+        MEIYOU_KEY: ${{ secrets.MEIYOU_KEY }}  # 从 GitHub Secrets 获取你的 Meiyou Key
       run: |
         echo "Sending meiyou_pee Notification..."
-        CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+        TZ=Asia/Shanghai CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
         echo $CURRENT_TIME
-        echo '{"record_category":41,"uni":"4_0","record_type":4,"baby_id":110281244,"record_detail":{"shit_shape":0,"urine_volume":0,"red_buttock":false,"shit_color":0},"start_at":"$CURRENT_TIME"}'
+        RECORD_JSON='{"record_category":41,"uni":"4_0","record_type":4,"baby_id":110281244,"record_detail":{"shit_shape":0,"urine_volume":0,"red_buttock":false,"shit_color":0},"start_at":"'$CURRENT_TIME'"}'
+        echo $RECORD_JSON
         curl -X POST "https://api-bbj.meiyou.com/v3/life/record" \
              -H "Content-Type: application/json" \
              -H "Authorization: $MEIYOU_KEY" \
-             -d '{"record_category":41,"uni":"4_0","record_type":4,"baby_id":110281244,"record_detail":{"shit_shape":0,"urine_volume":0,"red_buttock":false,"shit_color":0},"start_at":"$CURRENT_TIME"}'
+             -d "$RECORD_JSON"
