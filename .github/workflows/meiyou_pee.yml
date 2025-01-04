@@ -18,7 +18,7 @@ jobs:
         curl -X POST "https://api-bbj.meiyou.com/v3/life/record" \
              -H "Content-Type: application/json" \
              -H "Authorization: $MEIYOU_KEY" \
-             -d '{"record_category":41,"uni":"4_0","record_type":4,"baby_id":110281244,"record_detail":{"shit_shape":0,"urine_volume":0,"red_buttock":false,"shit_color":0},"start_at":"2025-01-04 20:51:00"}'
+             -d '{"record_category":41,"uni":"4_0","record_type":4,"baby_id":110281244,"record_detail":{"shit_shape":0,"urine_volume":0,"red_buttock":false,"shit_color":0},"start_at":"2025-01-04 17:51:00"}'
 
 
              
