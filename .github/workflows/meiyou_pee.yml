@@ -8,6 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Set up timezone
+      run: sudo timedatectl set-timezone Asia/Shanghai
     - name: Send meiyou_pee
       env:
         MEIYOU_KEY: ${{ secrets.MEIYOU_KEY }}  # 从 GitHub Secrets 获取你的 Bark Key
