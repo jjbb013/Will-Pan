@@ -23,7 +23,7 @@ jobs:
             "where": "",
             "pageindex": "1",
             "wwid": "702431363",
-            "pagesize": "20"
+            "pagesize": "200"
           }')
           
           # 提取 data 中每个 id
