@@ -1,0 +1,37 @@
+name: Request YouLiao Topic ID
+
+on:
+  schedule:
+    - cron: '20 3 * * *' # 每天中午11:20（北京时间）运行
+
+jobs:
+  send_request:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+      
+      - name: Send POST request
+        id: send_request
+        run: |
+          response=$(curl -s -X POST https://loveyouliao.jjmc.cn/api/PortalApi/Topic/QueryQuestion \
+          -H 'Content-Type: application/json' \
+          -d '{
+            "type": "1",
+            "where": "",
+            "pageindex": "1",
+            "wwid": "152898764",
+            "pagesize": "100"
+          }')
+          
+          # 提取 data 中每个 id
+          echo "$response" | jq -r '.data[].id' > topic_id.properties
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add topic_id.properties
+          git commit -m "Update topic_id.properties on schedule"
+          git push
