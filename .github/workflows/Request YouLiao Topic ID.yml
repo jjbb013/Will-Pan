@@ -1,8 +1,8 @@
 name: Request YouLiao Topic ID
 
 on:
-  schedule:
-    - cron: '20 3 * * *' # 每天中午11:20（北京时间）运行
+  #schedule:
+    #- cron: '20 3 * * *' # 每天中午11:20（北京时间）运行
   workflow_dispatch:
 
 jobs:
