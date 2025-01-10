@@ -54,7 +54,7 @@ jobs:
                 \"topicID\": \"$topicID\",
                 \"content\": \"$content\",
                 \"edit_Content\": \"$edit_content\",
-                \"is_anonymous\": \"1\"
+                \"is_anonymous\": \"2\"
               }")
               
               echo "Response for topicID $topicID and wwid $wwid: $response"
